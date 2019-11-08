@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import tensorflow as tf
 
 
@@ -27,12 +26,10 @@ def focal_loss_softmax(labels, logits, class_num, alpha=None,gamma=2, size_avera
     class_mask = tf.one_hot(labels,class_num) # one_hot labels
 
     alpha_ = tf.gather(alpha_,tf.reshape(ids,[-1]))  #取出每个类别对应的权重,shape同ids
-    probs = tf.math.reduce_sum(tf.math.multiply(P,class_mask),1, keepdims=True)
+    probs = tf.math.reduce_sum(tf.math.multiply(P,class_mask),1)
     log_p = tf.math.log(probs)
     
-    print(alpha_,probs,gamma,log_p)
     batch_loss = -alpha_*(tf.math.pow((1-probs), gamma))*log_p 
-    print(batch_loss)
 
     if size_average:
         loss = tf.math.reduce_mean(batch_loss)
@@ -44,7 +41,6 @@ def focal_loss_softmax(labels, logits, class_num, alpha=None,gamma=2, size_avera
 if __name__ == '__main__':
     labels = tf.reshape(tf.Variable([[1,2,0,1]]),[4,1])
     logits = tf.Variable([[3.1,2,1],[-1,2,0],[2,1,-3],[4,1,1]])
-    print(labels,logits)
     class_num = 3
     alpha =[2,1,0.5]
     gamma =1

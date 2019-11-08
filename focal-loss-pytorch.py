@@ -51,7 +51,7 @@ class FocalLoss(nn.Module):
             self.alpha = self.alpha.cuda()
         alpha = self.alpha[ids.data.view(-1)]
 
-        probs = (P*class_mask).sum(1).view(-1,1)
+        probs = (P*class_mask).sum(1).view(-1)
 
         log_p = probs.log()
         #print('probs size= {}'.format(probs.size()))
