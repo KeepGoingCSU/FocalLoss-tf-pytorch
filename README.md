@@ -3,5 +3,6 @@ A PyTorch and Tensorflow implementation of focal loss by Lin et. al. in their Fo
 
 # Requirements
 tensorflow 2.0
+
 pytorch 
 
